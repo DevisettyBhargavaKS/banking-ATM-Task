@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <title>Banking</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+      border-radius: 8px;
+    }
+    .btn-danger:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+    .table {
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container mt-5">
+    <div class="row justify-content-end mt-3 me-3">
+      <div class="col-md-6 text-end">
+        <button type="button" class="btn btn-danger" routerLink="">Logout</button>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <h3 class="card-title">Account Information</h3>
+            <p class="card-text">Account Holder Name: <span id="accountHolderName">{{ accounts.accountHolderName }}</span></p>
+            <p class="card-text">PIN Number: <span id="pinNumber">****</span></p>
+            <p class="card-text">Current Balance: {{ accounts.balance }}</p>
+
+            <form>
+              <div class="form-group">
+                <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter the amount" [(ngModel)]="amount" required>
+              </div>
+              <div style="color: red">{{ errorMessage }}</div>
+
+              <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-3">
+                <button type="button" class="btn btn-primary me-md-2 mb-2" (click)="onSubmitCredit()">Credit</button>
+                <button type="submit" class="btn btn-primary mb-2" (click)="onSubmitDebit()">Debit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <table class="table table-striped text-center">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Credit</th>
+              <th scope="col">Debit</th>
+              <th scope="col">Updated At</th>
+              <th scope="col">Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of transactions">
+              <td>{{ transaction.creditAmount }}</td>
+              <td>{{ transaction.debitAmount }}</td>
+              <td>{{ transaction.updatedAt | date : "short" }}</td>
+              <td>{{ transaction.balance }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
